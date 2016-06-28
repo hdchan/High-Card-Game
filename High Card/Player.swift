@@ -9,10 +9,10 @@
 import Foundation
 
 protocol PlayerProtocol {
-    
+    func drawCard(player:Player) -> PlayingCard
 }
 
-class Player:Hashable {
+class Player: Hashable {
     
     var uid:Int
     let name:String
@@ -20,22 +20,43 @@ class Player:Hashable {
     var hashValue: Int {
         return self.uid
     }
-    init(name:String) {
+    var game:PlayerProtocol
+    
+    init(game:PlayerProtocol ,name:String) {
         self.uid = Int(arc4random())
         self.name = name
         self.hand = []
+        self.game = game
     }
-   
+    
+    func drawCard() {
+        let drawnCard = game.drawCard(self)
+        self.hand.append(drawnCard)
+        print("\(name) drew a: \(drawnCard)")
+        NSNotificationCenter.defaultCenter().postNotificationName("turnFinished", object: nil)
+    }
+    
     func discardHand() {
         self.hand.removeAll()
     }
+    
+    
 }
 
 class HumanPlayer:Player {
     
+    
+    
 }
 class ComputerPlayer:Player {
+//    override init(game: PlayerProtocol, name: String) {
+//        super.init(game: game, name: name)
+//        
+//    }
     
+    func playTurn() {
+        drawCard()
+    }
 }
 
 func ==(lhs: Player, rhs: Player) -> Bool {

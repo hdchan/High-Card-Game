@@ -7,12 +7,19 @@
 //
 
 import Foundation
-typealias Suit = String
+
+
+struct Suit {
+    var suit:String
+    var value:Int
+}
+
 struct Rank {
     var rank:String
     var value:Int
 }
-struct PlayingCard {
+
+class PlayingCard:NSObject {
     
     let rank:Rank
     let suit:Suit
@@ -20,5 +27,9 @@ struct PlayingCard {
     init(rank:Rank, suit:Suit) {
         self.rank = rank
         self.suit = suit
+    }
+    
+    override var description:String {
+        return "\(rank.rank) of \(suit.suit)'s"
     }
 }

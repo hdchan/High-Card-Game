@@ -10,10 +10,16 @@ import Foundation
 
 struct CardGameViewModel {
     
-    private var game:HighCardGame
+    var game:HighCardGame
+    var context:Player
+    
+    init() {
+        game = HighCardGame()
+        context = game.players[0]
+    }
     
     func handleDrawAction() {
-        
+        context.drawCard()
     }
     
 }

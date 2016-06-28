@@ -10,7 +10,7 @@ import Foundation
 
 struct PlayingCardDeck {
  
-    private var deck:[PlayingCard] = []
+    var deck:[PlayingCard] = []
     
     init() {
         
@@ -27,9 +27,9 @@ struct PlayingCardDeck {
     
     private mutating func buildDeck() {
       
-        for rank in validRanks() {
+        for rank in getRanks() {
             
-            for suit in validSuits() {
+            for suit in getSuits() {
              
                 deck.append(PlayingCard(rank: rank, suit: suit))
                 
@@ -60,11 +60,15 @@ struct PlayingCardDeck {
         deck = shuffledDeck
     }
     
-    private func validSuits() -> [Suit] {
-        return ["♠️", "♥️", "♦️", "♣️"]
+    private func getSuits() -> [Suit] {
+        return [
+            Suit(suit:"♠️", value:4),
+            Suit(suit:"♥️", value:3),
+            Suit(suit:"♣️", value:2),
+            Suit(suit:"♦️", value:1)]
     }
     
-    private func validRanks() -> [Rank] {
+    private func getRanks() -> [Rank] {
         
         return [
             Rank(rank: "2", value: 2),
